@@ -9003,6 +9003,10 @@ function Compkiller.new(Config : Window)
 		end);
 	end);
 
+	function WindowArgs:Destroy()
+		CompKiller:Destroy();
+	end
+
 	return WindowArgs;
 end;
 
