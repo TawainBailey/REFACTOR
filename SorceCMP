@@ -7765,7 +7765,7 @@ function Compkiller.new(Config : Window)
 		local TabOpenSignal = Compkiller.__SIGNAL(false);
 		local TabArgs = {};
 		local Upvalue = {};
-		local BASE_PADDING = 10;
+		local BASE_PADDING = 5;
 
 		if Internal then
 
@@ -7850,7 +7850,7 @@ function Compkiller.new(Config : Window)
 			-- Always use full-width layout for sections (force Single tab behavior)
 			Right.Visible = false;
 			Left.Position = UDim2.new(0.5, 0, 0.5, 0)
-			Left.Size = UDim2.new(0.8,0,1,0)
+			Left.Size = UDim2.new(1,0,1,0)
 
 			local Tween = TweenInfo.new(0.35,Enum.EasingStyle.Quint);
 
@@ -8033,7 +8033,7 @@ function Compkiller.new(Config : Window)
 			-- Always use full-width layout for sections (force Single tab behavior)
 			Right.Visible = false;
 			Left.Position = UDim2.new(0.5, 0, 0.5, 0)
-			Left.Size = UDim2.new(0.8, -1, 1, -1)
+			Left.Size = UDim2.new(1, -1, 1, -1)
 
 			local Tween = TweenInfo.new(0.35,Enum.EasingStyle.Quint);
 
@@ -8303,7 +8303,7 @@ function Compkiller.new(Config : Window)
 			UIListLayout.Parent = Section
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-			UIListLayout.Padding = UDim.new(0, 5)
+			UIListLayout.Padding = UDim.new(0, 3)
 
 			Header.Name = Compkiller:_RandomString()
 			Header.Parent = Section
@@ -8311,7 +8311,7 @@ function Compkiller.new(Config : Window)
 			Header.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			Header.BorderSizePixel = 0
 			Header.LayoutOrder = -100
-			Header.Size = UDim2.new(1, 0, 0, 35)
+			Header.Size = UDim2.new(1, 0, 0, 25)
 			Header.ZIndex = 9
 
 			SectionText.Name = Compkiller:_RandomString()
@@ -8326,7 +8326,7 @@ function Compkiller.new(Config : Window)
 			SectionText.Font = Enum.Font.GothamMedium
 			SectionText.Text = config.Name;
 			SectionText.TextColor3 = Compkiller.Colors.SwitchColor
-			SectionText.TextSize = 14.000
+			SectionText.TextSize = 12.000
 			SectionText.TextTransparency = 0.500
 			SectionText.TextXAlignment = Enum.TextXAlignment.Left
 
