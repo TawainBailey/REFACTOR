@@ -8335,6 +8335,11 @@ function Compkiller.new(Config : Window)
 			SectionText.TextTransparency = 0.500
 			SectionText.TextXAlignment = Enum.TextXAlignment.Left
 
+			-- Add gradient effect
+			local SectionGradient = Instance.new("UIGradient")
+			SectionGradient.Color = ColorSequence.new(Color3.fromRGB(135, 206, 235), Color3.fromRGB(138, 43, 226))
+			SectionGradient.Parent = SectionText
+
 			table.insert(Compkiller.Elements.SwitchColor , {
 				Element = SectionText,
 				Property = 'TextColor3'
