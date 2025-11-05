@@ -8369,24 +8369,22 @@ function Compkiller.new(Config : Window)
 					Header.Visible = true;
 				end;
 
+				if Section:GetAttribute('OrigninalScale') and Section:GetAttribute('OrigninalScale') ~= UIListLayout.AbsoluteContentSize.Y then
+					Section:SetAttribute('Height', nil);
+				end;
+
 				Section:SetAttribute('OrigninalScale',UIListLayout.AbsoluteContentSize.Y);
 
 				if IsOpen then
 					local FullScale = Section.AbsolutePosition.Y + UIListLayout.AbsoluteContentSize.Y;
 					local RefPos = Parent.AbsolutePosition.Y + Parent.AbsoluteSize.Y;
 
-					if (Section:GetAttribute('Height') and not Compkiller:_IsMobile() and FullScale <= RefPos) then
-						Compkiller:_Animation(Section,TweenInfo.new(0.4,Enum.EasingStyle.Quint),{
-							Size = UDim2.new(1, 0, 0, math.abs(Section:GetAttribute('Height')) + 5)
-						});
-					else
-						Compkiller:_Animation(Section,TweenInfo.new(0.4,Enum.EasingStyle.Quint),{
-							Size = UDim2.new(1, 0, 0, math.abs(UIListLayout.AbsoluteContentSize.Y) - 1)
-						});
+					Compkiller:_Animation(Section,TweenInfo.new(0.4,Enum.EasingStyle.Quint),{
+						Size = UDim2.new(1, 0, 0, math.abs(UIListLayout.AbsoluteContentSize.Y) - 1)
+					});
 
-						if Section:GetAttribute('Lasth') and UIListLayout.AbsoluteContentSize.Y > Section:GetAttribute('Lasth') then
-							Section:SetAttribute('Lasth',math.abs(UIListLayout.AbsoluteContentSize.Y) - 1);
-						end;
+					if Section:GetAttribute('Lasth') and UIListLayout.AbsoluteContentSize.Y > Section:GetAttribute('Lasth') then
+						Section:SetAttribute('Lasth',math.abs(UIListLayout.AbsoluteContentSize.Y) - 1);
 					end;
 
 					TabArgs.SectionClose[Parent][Section] = nil;
