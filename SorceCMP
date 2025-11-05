@@ -7847,11 +7847,10 @@ function Compkiller.new(Config : Window)
 			WindowArgs:AddUnbind(UIListLayout_2 , Right);
 			WindowArgs:AddUnbind(UIListLayout , Left);
 
-			if TabConfig.Type == "Single" then
-				Right.Visible = false;
-				Left.Position = UDim2.new(0.5, 0, 0.5, 0)
-				Left.Size = UDim2.new(1,0,1,0)
-			end;
+			-- Always use full-width layout for sections (force Single tab behavior)
+			Right.Visible = false;
+			Left.Position = UDim2.new(0.5, 0, 0.5, 0)
+			Left.Size = UDim2.new(1,0,1,0)
 
 			local Tween = TweenInfo.new(0.35,Enum.EasingStyle.Quint);
 
@@ -8031,11 +8030,10 @@ function Compkiller.new(Config : Window)
 				Compkiller:_AddDragBlacklist(Right);
 			end;
 
-			if TabConfig.Type == "Single" then
-				Right.Visible = false;
-				Left.Position = UDim2.new(0.5, 0, 0.5, 0)
-				Left.Size = UDim2.new(1, -1, 1, -1)
-			end;
+			-- Always use full-width layout for sections (force Single tab behavior)
+			Right.Visible = false;
+			Left.Position = UDim2.new(0.5, 0, 0.5, 0)
+			Left.Size = UDim2.new(1, -1, 1, -1)
 
 			local Tween = TweenInfo.new(0.35,Enum.EasingStyle.Quint);
 
@@ -8256,8 +8254,9 @@ function Compkiller.new(Config : Window)
 				Position = "left"
 			});
 
-			local Parent = (TabConfig.Type == "Double" and ((string.lower(config.Position) == "left" and Upvalue.Left) or Upvalue.Right)) or Upvalue.Left;
-			local ParentLayout = (TabConfig.Type == "Double" and ((string.lower(config.Position) == "left" and Upvalue.LeftLayout) or Upvalue.RightLayout)) or Upvalue.LeftLayout;
+			-- Always use the full width Left container (like Single tab type)
+			local Parent = Upvalue.Left;
+			local ParentLayout = Upvalue.LeftLayout;
 
 			local IsOpen = false;
 
@@ -8271,10 +8270,6 @@ function Compkiller.new(Config : Window)
 
 			Section.Name = Compkiller:_RandomString()
 			Section.Parent = Parent;
-
-			if TabConfig.Type == "Single" then
-				Section.Parent = Upvalue.Left;
-			end;
 
 			Section.BackgroundColor3 = Compkiller.Colors.BlockColor
 
