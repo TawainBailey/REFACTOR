@@ -8337,7 +8337,12 @@ function Compkiller.new(Config : Window)
 
 			-- Add gradient effect
 			local SectionGradient = Instance.new("UIGradient")
-			SectionGradient.Color = ColorSequence.new(Color3.fromRGB(135, 206, 235), Color3.fromRGB(138, 43, 226))
+			SectionGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 150, 255)),     -- Bright blue
+				ColorSequenceKeypoint.new(0.33, Color3.fromRGB(50, 100, 255)), -- Blue leaning purple
+				ColorSequenceKeypoint.new(0.66, Color3.fromRGB(100, 50, 255)), -- Purple leaning blue
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 0, 255))     -- Bright purple
+			})
 			SectionGradient.Parent = SectionText
 
 			table.insert(Compkiller.Elements.SwitchColor , {
