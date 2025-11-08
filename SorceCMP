@@ -1,7 +1,7 @@
 --[[
     		Compkiller Interface
 
-    Author: 4lpacav9
+    Author: 4lpacav20
     License: MIT
     Github: https://github.com/4lpaca-pin/CompKiller
     Version: 2.4
@@ -170,6 +170,10 @@ export type Dropdown = {
 export type Button = {
 	Name: string,
 	Callback: () -> any?
+};
+
+export type Label = {
+	Name: string
 };
 
 export type Keybind = {
@@ -4899,6 +4903,112 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal)
 		if Config.Flag then
 			Compkiller.Flags[Config.Flag] = Args;
 		end;
+
+		return Args;
+	end;
+
+	function Args:AddLabel(Config: Label)
+		Config = Compkiller.__CONFIG(Config , {
+			Name = 'Label',
+		});
+
+		local Label = Instance.new("Frame")
+		local BlockLine = Instance.new("Frame")
+		local Frame = Instance.new("Frame")
+		local UIStroke = Instance.new("UIStroke")
+		local UICorner = Instance.new("UICorner")
+		local TextLabel = Instance.new("TextLabel")
+
+		if Compkiller:_IsMobile() then
+			Compkiller:_AddDragBlacklist(Label);
+		end;
+
+		Label.Name = Compkiller:_RandomString()
+		Label.Parent = Parent
+		Label.BackgroundTransparency = 1.000
+		Label.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Label.BorderSizePixel = 0
+		Label.Size = UDim2.new(1, -1, 0, 30)
+		Label.ZIndex = Zindex + 5
+
+		BlockLine.Name = Compkiller:_RandomString()
+		BlockLine.Parent = Label
+		BlockLine.AnchorPoint = Vector2.new(0.5, 1)
+		BlockLine.BackgroundColor3 = Compkiller.Colors.LineColor
+		BlockLine.BackgroundTransparency = 0.500
+		BlockLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		BlockLine.BorderSizePixel = 0
+		BlockLine.Position = UDim2.new(0.5, 0, 1, 0)
+		BlockLine.Size = UDim2.new(1, -26, 0, 1)
+		BlockLine.ZIndex = Zindex + 6
+
+		table.insert(Compkiller.Elements.LineColor,{
+			Element = BlockLine,
+			Property = "BackgroundColor3"
+		});
+
+		Frame.Parent = Label
+		Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+		Frame.BackgroundColor3 = Compkiller.Colors.Background
+		Frame.BackgroundTransparency = 0.100
+		Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Frame.BorderSizePixel = 0
+		Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+		Frame.Size = UDim2.new(1, -15, 1, -5)
+		Frame.ZIndex = Zindex + 7;
+
+		table.insert(Compkiller.Elements.Background,{
+			Element = Frame,
+			Property = "BackgroundColor3"
+		});
+
+		UIStroke.Parent = Frame
+		UIStroke.Color = Compkiller.Colors.StrokeColor
+		UIStroke.Thickness = 1
+		UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+		table.insert(Compkiller.Elements.StrokeColor,{
+			Element = UIStroke,
+			Property = "Color"
+		});
+
+		UICorner.Parent = Frame
+		UICorner.CornerRadius = UDim.new(0, 4)
+
+		TextLabel.Parent = Frame
+		TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TextLabel.BorderSizePixel = 0
+		TextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+		TextLabel.Size = UDim2.new(1, -10, 1, -10)
+		TextLabel.ZIndex = Zindex + 8
+		TextLabel.Font = Enum.Font.GothamMedium
+		TextLabel.Text = Config.Name
+		TextLabel.TextColor3 = Compkiller.Colors.TextColor
+		TextLabel.TextSize = 14.000
+		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+		table.insert(Compkiller.Elements.TextColor,{
+			Element = TextLabel,
+			Property = "TextColor3"
+		});
+
+		local Args = {};
+
+		function Args:Set(text)
+			TextLabel.Text = text;
+		end;
+
+		function Args:Get()
+			return TextLabel.Text;
+		end;
+
+		Args.Signal = Signal:Connect(function(bool)
+			Label.Visible = bool;
+		end);
+
+		Args.Link = Compkiller:_LoadOption(Label);
 
 		return Args;
 	end;
