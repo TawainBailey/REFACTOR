@@ -5682,15 +5682,16 @@ function Compkiller.new(Config : Window)
 	ExpireText.ZIndex = 2
 	ExpireText.Font = Enum.Font.GothamMedium
 	ExpireText.Text = "0/0/0"
-	ExpireText.TextColor3 = Compkiller.Colors.SwitchColor
+	ExpireText.TextColor3 = Color3.fromRGB(0, 255, 0) -- Green color for "Stable"
 	ExpireText.TextSize = 13.000
 	ExpireText.TextTransparency = 0.500
 	ExpireText.TextXAlignment = Enum.TextXAlignment.Left
 
-	table.insert(Compkiller.Elements.SwitchColor , {
-		Element = ExpireText,
-		Property = 'TextColor3'
-	});
+	-- Removed from Elements to keep it green
+	-- table.insert(Compkiller.Elements.SwitchColor , {
+	-- 	Element = ExpireText,
+	-- 	Property = 'TextColor3'
+	-- });
 
 	TabMainFrame.Name = Compkiller:_RandomString()
 	TabMainFrame.Parent = MainFrame
@@ -8333,10 +8334,9 @@ function Compkiller.new(Config : Window)
 			-- Add gradient effect
 			local SectionGradient = Instance.new("UIGradient")
 			SectionGradient.Color = ColorSequence.new({
-				ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 150, 255)),     -- Bright blue
-				ColorSequenceKeypoint.new(0.33, Color3.fromRGB(50, 100, 255)), -- Blue leaning purple
-				ColorSequenceKeypoint.new(0.66, Color3.fromRGB(100, 50, 255)), -- Purple leaning blue
-				ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 0, 255))     -- Bright purple
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(176, 205, 77)),    -- #B0CD4D
+				ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),  -- #FFFFFF
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(224, 255, 255))    -- #E0FFFF
 			})
 			SectionGradient.Parent = SectionText
 
@@ -8869,7 +8869,7 @@ function Compkiller.new(Config : Window)
 		config = config or {};
 		config.Logo = config.Logo or Config.Logo;
 		config.Username = config.Username or LocalPlayer.DisplayName;
-		config.ExpireDate = config.ExpireDate or "NEVER";
+		config.ExpireDate = config.ExpireDate or "Stable";
 		config.WindowName = config.WindowName or Config.Name;
 		config.UserProfile = config.UserProfile or WindowArgs.Profile or string.format("rbxthumb://type=AvatarHeadShot&id=%s&w=150&h=150",tostring(LocalPlayer.UserId));
 
