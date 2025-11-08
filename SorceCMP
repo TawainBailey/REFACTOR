@@ -1,7 +1,7 @@
 --[[
     		Compkiller Interface
 
-    Author: 4lpacav5
+    Author: 4lpacav7
     License: MIT
     Github: https://github.com/4lpaca-pin/CompKiller
     Version: 2.4
@@ -8334,9 +8334,12 @@ function Compkiller.new(Config : Window)
 			-- Add gradient effect
 			local SectionGradient = Instance.new("UIGradient")
 			SectionGradient.Color = ColorSequence.new({
-				ColorSequenceKeypoint.new(0, Color3.fromRGB(176, 205, 77)),    -- #B0CD4D
-				ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),  -- #FFFFFF
-				ColorSequenceKeypoint.new(1, Color3.fromRGB(224, 255, 255))    -- #E0FFFF
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(236, 236, 241)),    -- #ECECF1
+				ColorSequenceKeypoint.new(0.2, Color3.fromRGB(178, 186, 213)),  -- #B2BAD5
+				ColorSequenceKeypoint.new(0.4, Color3.fromRGB(103, 102, 161)), -- #6766A1
+				ColorSequenceKeypoint.new(0.6, Color3.fromRGB(61, 61, 117)),   -- #3D3D75
+				ColorSequenceKeypoint.new(0.8, Color3.fromRGB(47, 46, 88)),    -- #2F2E58
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(35, 35, 63))      -- #23233F
 			})
 			SectionGradient.Parent = SectionText
 
@@ -9301,6 +9304,33 @@ function Compkiller:Loader(IconId,Duration)
 	Icon.Image = IconId or Compkiller.Logo;
 	Icon.ImageTransparency = 1
 
+	-- Add spinning animation
+	local spinTween = Compkiller:_Animation(Icon, TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.In, -1, true), {
+		Rotation = 360
+	});
+
+	-- Add glow effect that moves from left to right
+	local GlowEffect = Instance.new("UIGradient")
+	GlowEffect.Name = Compkiller:_RandomString()
+	GlowEffect.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+		ColorSequenceKeypoint.new(0.5, Color3.fromRGB(150, 200, 255)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+	})
+	GlowEffect.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 1),
+		NumberSequenceKeypoint.new(0.1, 0.3),
+		NumberSequenceKeypoint.new(0.5, 0),
+		NumberSequenceKeypoint.new(0.9, 0.3),
+		NumberSequenceKeypoint.new(1, 1)
+	})
+	GlowEffect.Parent = Icon
+
+	-- Animate the glow moving from left to right
+	local glowTween = Compkiller:_Animation(GlowEffect, TweenInfo.new(1.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true), {
+		Offset = Vector2.new(1, 0)
+	});
+
 	Vignette.Name = Compkiller:_RandomString()
 	Vignette.Parent = Loader
 	Vignette.BackgroundTransparency = 1.000
@@ -9350,6 +9380,17 @@ function Compkiller:Loader(IconId,Duration)
 				});
 
 				task.wait(0.2)
+
+				-- Stop spinning and glow animations
+				if spinTween then
+					pcall(function() spinTween:Cancel() end)
+				end
+				if glowTween then
+					pcall(function() glowTween:Cancel() end)
+				end
+				if GlowEffect then
+					pcall(function() GlowEffect:Destroy() end)
+				end
 
 				task.delay(3,function()
 					CompKiller:Destroy();
