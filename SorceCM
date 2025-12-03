@@ -1,5 +1,5 @@
 --[[
-    		Compkiller Interface
+    		 Interface
 
     Author: 4lpacav20
     License: MIT
@@ -8463,7 +8463,7 @@ function Compkiller.new(Config : Window)
 			SectionClose.Position = UDim2.new(1, -12, 0.5, 0)
 			SectionClose.Size = UDim2.new(0, 17, 0, 17)
 			SectionClose.ZIndex = 10
-			SectionClose.Image = Compkiller:CacheImage("rbxassetid://10709790948")
+			SectionClose.Image = Compkiller:CacheImage("rbxassetid://6031090990")
 			SectionClose.ImageTransparency = 0.500
 
 			if not SectionText.Text:byte() then
@@ -8617,11 +8617,11 @@ function Compkiller.new(Config : Window)
 
 				if IsOpen then
 					Compkiller:_Animation(SectionClose,TweenInfo.new(0.35),{
-						Rotation = 0
+						Rotation = 90
 					});
 				else
 					Compkiller:_Animation(SectionClose,TweenInfo.new(0.35),{
-						Rotation = -180
+						Rotation = 180
 					});
 				end;
 
